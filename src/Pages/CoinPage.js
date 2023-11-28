@@ -30,16 +30,16 @@ const useStyle = makeStyles((theme) => ({
   },
   heading: {
     fontWeight: 'bold',
-    marginBottom: 20,
+    marginBottom: 10,
     fontFamily: 'Montserrat'
   },
   description: {
     width: '100%',
     fontFamily: 'Montserrat',
-    padding: 25,
-    paddingBottom: 15,
+    padding: 20,
+    paddingBottom: 10,
     paddingTop: 0,
-    textAlign: 'justify'
+    textAlign: 'justify'    
   },
   marketData: {
     alignSelf: 'start',
@@ -55,7 +55,7 @@ const useStyle = makeStyles((theme) => ({
       alignItems: 'center'
     },
     [theme.breakpoints.down('xs')]: {
-      alignItems: 'start'
+      alignItems: 'center'
     }
 
   }
@@ -83,7 +83,7 @@ const CoinPage = () => {
         <img
           src={coin?.image.large}
           alt={coin?.name}
-          height='150'
+          height='100'
           style={{ marginBottom: 20 }}
         />
         <Typography variant='h3' className={classes.heading}>
@@ -94,11 +94,11 @@ const CoinPage = () => {
         </Typography>
         <div className={classes.marketData}>
           <span style={{ display: 'flex' }}>
-            <Typography variant='h5' className={classes.heading}>
+            <Typography variant='h6' className={classes.heading}>
               Rank:
             </Typography>
             &nbsp; &nbsp;
-            <Typography variant='h5'
+            <Typography variant='h6'
               style={{
                 fontFamily: 'Montserrat'
               }}>
@@ -106,11 +106,11 @@ const CoinPage = () => {
             </Typography>
           </span>
           <span style={{ display: 'flex' }}>
-            <Typography variant='h5' className={classes.heading}>
+            <Typography variant='h6' className={classes.heading}>
               Current Price:
             </Typography>
             &nbsp; &nbsp;
-            <Typography variant='h5'
+            <Typography variant='h6'
               style={{
                 fontFamily: 'Montserrat'
               }}>
@@ -121,11 +121,11 @@ const CoinPage = () => {
             </Typography>
           </span>
           <span style={{ display: 'flex' }}>
-            <Typography variant='h5' className={classes.heading}>
+            <Typography variant='h6' className={classes.heading}>
               Market Cap:
             </Typography>
             &nbsp; &nbsp;
-            <Typography variant='h5'
+            <Typography variant='h6'
               style={{
                 fontFamily: 'Montserrat'
               }}>
