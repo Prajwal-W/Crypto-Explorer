@@ -13,6 +13,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import { useNavigate } from 'react-router-dom'
 import { numberWithCommas } from './Banner/Carousal'
+import { Pagination } from '@material-ui/lab'
 
 const useStyles = makeStyles(() => ({
     row: {
@@ -28,6 +29,7 @@ const CoinsTable = () => {
     const [coins, setCoins] = useState([])
     const [loading, setLoading] = useState(false)
     const [search, setSearch] = useState('')
+    const [page, setPage] = useState(1)
     const navigate = useNavigate()
     const { currency, symbol } = CryptoState();
     const fetchCoins = async () => {
@@ -51,14 +53,27 @@ const CoinsTable = () => {
     })
     const handleSearch = () => {
         return coins.filter(
-            (coin) => {
+            (coin) => 
                 coin.name.toLowerCase().includes(search) ||
-                    coin.symbol.toLowerCase().includes(search)
-            }
+                coin.symbol.toLowerCase().includes(search)
         )
     }
 
-    const classes = useStyles()
+    const classes = useStyles(() => ({
+        row: {
+            backgroundColor: '#16171a',
+            cursor: 'pointer',
+            "&:hover": {
+                backgroundColor: '#131111',
+            },
+            fontFamily: 'Montserrat',
+        },
+        pagination: {
+            '& .MuiPaginationItem-root': {
+                color: 'gold'
+            }
+        }
+    }))
     return (
         <ThemeProvider theme={darkTheme}>
             <Container style={{ textAlign: 'center' }}>
@@ -95,8 +110,9 @@ const CoinsTable = () => {
                                             ))}
                                         </TableRow>
                                     </TableHead>
-                                    <TableBody>{handleSearch().map((row) => {
+                                    <TableBody>{handleSearch().slice((page - 1) * 10, (page - 1) * 10 + 10).map((row) => {
                                         const profit = row.price_change_percentage_24h > 0;
+                                        console.log(row)
                                         return (
                                             <TableRow
                                                 onClick={() => navigate(`coins/${row.id}`)}
@@ -145,6 +161,13 @@ const CoinsTable = () => {
                                                     {profit && "+"}
                                                     {row.price_change_percentage_24h.toFixed(2)}%
                                                 </TableCell>
+                                                <TableCell align="right">
+                                                    {symbol}{" "}
+                                                    {numberWithCommas(
+                                                        row.market_cap.toString().slice(0, -6)
+                                                    )}
+                                                    M
+                                                </TableCell>
                                             </TableRow>
                                         )
                                     })}</TableBody>
@@ -152,6 +175,20 @@ const CoinsTable = () => {
                             )
                     }
                 </TableContainer>
+                <Pagination
+                    style={{
+                        padding: 20,
+                        width: "100%",
+                        display: 'flex',
+                        justifyContent: 'center'
+                    }}
+                    classes={{ ul: classes.pagination }}
+                    count={(handleSearch()?.length / 10).toFixed(0)}
+                    onChange={(_, value) => {
+                        setPage(value);
+                        window.scroll(0, 450);
+                    }}
+                />
             </Container>
         </ThemeProvider>
     )
