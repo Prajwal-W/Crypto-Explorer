@@ -1,5 +1,4 @@
-# Getting Started with Create React App
-
+# Crypto Explorer app made with React.JS Material UI and ChartJS
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
